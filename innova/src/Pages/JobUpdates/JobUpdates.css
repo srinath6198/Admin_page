@@ -1,0 +1,38 @@
+.career-table{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  align-items: center;
+  margin: 50px 0px;
+}
+.career-table h1{
+    margin: 50px 0px;
+}
+.career-table table{
+    width: 70%;
+    border-collapse: collapse;
+  border-spacing: 10px;
+}
+.career-table table, td, th {
+    border: 1px solid black;
+    padding: 10px;
+    
+  }
+  .career-table th{
+width: 300px;
+
+  }
+  .career-table table button{
+    width: 100px;
+    background:none;
+    font-weight: 600;
+    padding: 6px;
+    background-color: rgb(154, 240, 160);
+    
+  }
+  .career-table table button:hover{
+    background-color:  rgb(70, 159, 76);;
+  }
+  

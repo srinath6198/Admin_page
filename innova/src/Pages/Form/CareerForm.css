@@ -1,0 +1,59 @@
+.career-form-header h1{
+  text-align: center;
+  margin: 30px 0px;
+}
+.career-form {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .career-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .career-form label {
+    display: block;
+    font-weight: bold;
+    padding: 0px;
+    margin-bottom: 5px;
+  }
+  
+  .career-form input,
+  .career-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .career-form input[type="file"] {
+    padding: 3px;
+  }
+  
+  .career-form .error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  
+  .career-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .career-form button:hover {
+    background-color: #218838;
+  }
+  
