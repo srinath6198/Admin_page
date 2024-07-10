@@ -7,6 +7,7 @@ const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const jobRoutes = require('./routes/jobRoutes'); 
 const CareerSchemaData = require('./models/careerData');
+const handlerData = require('./handlerData')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,6 +29,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/admin/jobpost', jobRoutes);  
 app.use('/admin/jobgetData', jobRoutes);
+app.use('/admin/jobdataDelete', jobRoutes);
+
+
 
 
 // Job application form setup

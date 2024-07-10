@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './JobAdmin.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const JobAdmin = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [data, setData] = useState({
     jobName: '',
     salary: '',
@@ -59,20 +59,22 @@ const JobAdmin = () => {
     }
   };
 
-  const redirect =()=>{
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
+  // const redirect =()=>{
+  //   localStorage.removeItem('token')
+  //   navigate('/login')
+  // }
 
   return (
 
     <div className='admin_container-header'>
-      <h1>Admin</h1>
+      <h1>Job Post</h1>
       <div className='admin_container'>
       <div className='admin_form_container'>
         <div className='admin_left'>
           <form className='admin_form_container' onSubmit={handleSubmit}>
-            <h1 onClick={redirect}>Job Post</h1>
+            {/* <h1 onClick={redirect}>Job Post</h1> */}
+            <br />
+            <br />
             <input
               type="text"
               placeholder="Job Title"

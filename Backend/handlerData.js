@@ -59,3 +59,31 @@ exports.getJobData = async (req, res) => {
         });
     }
 };
+
+
+// Controller function to delete a job post by ID
+
+// Delete job by ID
+exports.deleteJob = async (req, res) => {
+    try {
+        const jobId = req.params.id;
+        const deletedJob = await JobpostModel.findByIdAndDelete(jobId);
+
+        if (!deletedJob) {
+            return res.status(404).json({
+                message: 'Job post not found',
+            });
+        }
+
+        res.status(200).json({
+            message: 'Job Data Deleted Successfully',
+            deletedJob,
+        });
+    } catch (error) {
+        console.error('Error deleting job:', error);
+        res.status(500).json({
+            message: 'Data can\'t be deleted',
+            error: error.message,
+        });
+    }
+};
