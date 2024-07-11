@@ -19,6 +19,22 @@ exports.postData = async(req,res)=>{
         })
     }
 };
+ 
+exports.getemplayeeData = async(req,res)=>{
+    try {
+        const getData= await CareerModel.find({});
+    res.status(200).json({
+        message:'Emplayee successfully get',
+        getData
+    })
+    } catch (error) {
+        res.status(404).json({
+            message:'Emplayee Data not get',
+            error:error.message
+        })
+    }
+}
+
 exports.jobPostData = async (req, res) => {
     try {
         // Log request body for debugging

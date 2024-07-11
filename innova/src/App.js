@@ -1,6 +1,6 @@
 import JobAdmin from "./Admin/JobAdmin/JobAdmin";
 import Login from "./Admin/Login/Login";
-import SignUp from "./Admin/Sign Up/SignUp";
+// import SignUp from "./Admin/Sign Up/SignUp";cd
 import Career from "./Pages/Career";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import CareerForm from "./Pages/Form/CareerForm";

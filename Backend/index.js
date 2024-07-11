@@ -5,9 +5,9 @@ const cors = require('cors');
 require('dotenv').config();
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
-const jobRoutes = require('./routes/jobRoutes'); 
+const jobRoutes = require('./routes/jobRoutes');
 const CareerSchemaData = require('./models/careerData');
-const handlerData = require('./handlerData')
+const handlerData = require('./handlerData');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -15,7 +15,11 @@ const port = process.env.PORT || 5000;
 // Use CORS to allow cross-origin requests
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static('uploads'));
+
 // Connect to MongoDB
 mongoose.connect(process.env.DB)
   .then(() => console.log('MongoDB connected...'))
@@ -27,12 +31,10 @@ mongoose.connect(process.env.DB)
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/admin/jobpost', jobRoutes);  
+app.use('/admin/jobpost', jobRoutes);
 app.use('/admin/jobgetData', jobRoutes);
 app.use('/admin/jobdataDelete', jobRoutes);
-
-
-
+app.get('/admin/emplayeedata', handlerData.getemplayeeData);
 
 // Job application form setup
 const storage = multer.diskStorage({
@@ -44,30 +46,40 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+
 app.post('/submit', upload.single('resume'), (req, res) => {
-  const { firstName, lastName, gender, dateOfBirth, email, number, address, street, city, zipCode, qualification, experience } = req.body;
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+  try {
+    const { firstName, lastName, gender, dateOfBirth, email, number, address, street, city, zipCode, qualification, experience } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded.' });
+    }
+
+    // Construct the URL to access the uploaded file
+    const resumeUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+    const careerData = new CareerSchemaData({
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      email,
+      number,
+      address,
+      street,
+      city,
+      zipCode,
+      qualification,
+      experience,
+      resume: resumeUrl
+    });
+
+    careerData.save()
+      .then(() => res.json({ message: 'Career data saved successfully!' }))
+      .catch(err => res.status(400).json({ error: err.message }));
+  } catch (err) {
+    res.status(500).json({ error: 'An error occurred while processing your request.' });
   }
-  const resume = req.file.path;
-  const careerData = new CareerSchemaData({
-    firstName,
-    lastName,
-    gender,
-    dateOfBirth,
-    email,
-    number,
-    address,
-    street,
-    city,
-    zipCode,
-    qualification,
-    experience,
-    resume
-  });
-  careerData.save()
-    .then(() => res.send('Career data saved successfully!'))
-    .catch(err => res.status(400).send(err.message));
 });
 
 app.listen(port, () => {

@@ -3,6 +3,7 @@ import './AdminPage.css';
 import { useNavigate } from 'react-router-dom';
 import JobAdmin from '../JobAdmin/JobAdmin';
 import { JobDelete } from '../JobDelete/JobDelete';
+import EmplayeeData from '../EmplayeeData/EmplayeeData';
 
 
 const AdminPage = () => {
@@ -13,13 +14,14 @@ const AdminPage = () => {
       }
   return (
     <div>
-        <nav>
+        <nav className='navBar-btn'>
             <button onClick={redirect}>Logout</button>
         </nav>
 
         {/* job posting */}
         <JobAdmin/>
         <JobDelete/>
+        <EmplayeeData/>
     </div>
   )
 }
