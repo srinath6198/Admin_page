@@ -3,10 +3,11 @@ import './CareerForm.css';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 const CareerForm = () => {
 
-
+const navigate = useNavigate();
   
   const formik = useFormik({
     initialValues: {
@@ -41,6 +42,7 @@ const CareerForm = () => {
     }),
     onSubmit: (values) => {
       console.log(values);
+      navigate('/')
       const formData = new FormData();
       Object.keys(values).forEach(key => {
         if (values[key] !== null) {
