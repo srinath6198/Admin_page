@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const jobRoutes = require('./routes/jobRoutes');
 const CareerSchemaData = require('./models/careerData');
 const handlerData = require('./handlerData');
+const nodeMailer = require('nodemailer');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -47,6 +48,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+const transportmail = nodeMailer.createTransport({
+  service: 'gmail', // Changed from 'server' to 'service'
+  auth: {
+    user: 'msrinath6109@gmail.com',
+    pass: 'zzcngcqzjuvwjagz'
+  }
+});
+
 app.post('/submit', upload.single('resume'), (req, res) => {
   try {
     const { firstName, lastName, gender, dateOfBirth, email, number, address, street, city, zipCode, qualification, experience } = req.body;
@@ -75,7 +84,25 @@ app.post('/submit', upload.single('resume'), (req, res) => {
     });
 
     careerData.save()
-      .then(() => res.json({ message: 'Career data saved successfully!' }))
+      .then(() => {
+        // Email content to admin
+        const mailContent = {
+          from: 'msrinath6109@gmail.com',
+          to: 'msrinath6109@gmail.com', // Replace with admin's email address
+          subject: 'New Job Application Received',
+          text: `A new job application has been received from ${firstName} ${lastName}. \nEmail: ${email}\nResume: ${resumeUrl}` // adding the user from details
+        };
+
+        transportmail.sendMail(mailContent, (err, info) => {
+          if (err) {
+            console.error('Error sending email:', err);
+            return res.status(500).json({ error: 'Failed to send email notification.' });
+          } else {
+            console.log('Email sent:', info.response);
+            res.json({ message: 'Career data saved and email sent successfully!' });
+          }
+        });
+      })
       .catch(err => res.status(400).json({ error: err.message }));
   } catch (err) {
     res.status(500).json({ error: 'An error occurred while processing your request.' });

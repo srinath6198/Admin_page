@@ -9,8 +9,8 @@ import JobUpdates from './JobUpdates/JobUpdates'
 const Career = () => {
   return (
     <div>
-            <section className='career'>
-        <div className='carerr-content'>
+            <section className='container-xs  career'>
+        <div className='container-sm carerr-content'>
             <h1>Job Seekers</h1>
             <h2> Innovaskill Technologies provide best opportunities in various sector such as</h2>
             {/* <button><Link to={'/admin'}>ADMIN</Link></button> */}
@@ -18,13 +18,13 @@ const Career = () => {
             :<button><Link to={'/admin'}>Login</Link></button>}
         </div>
             </section>
-            <div className="career-content">
+            <div className="  career-content">
               <div className='career-content-header'>
               <h1>About Us</h1>
               <h2> Innovaskill Technologies provide best opportunities in various sector such as</h2>
               </div>
-              <div className='career-flex'>
-                <div className='career-flex-left'>
+              <div className=' row career-flex'>
+                <div className=' col-md w-100 career-flex-left'>
                 <p>Electronic Design Automation Industrial Automation Information Security Software Development
                  Civil and Mechanical Design Computerised Accounting Digital Marketing And many more</p>
                  <p> Innovaskill is eagerly following up the current requirement of each client and noted the 
@@ -37,7 +37,7 @@ const Career = () => {
                   <p> If you wish to be considered for any of our Openings, you may please submit your Curriculum Vitae 
                     and We will assist you in the best possible manner.</p>
                 </div>
-                <div className="career-flex-right">
+                <div className="col-md-8  career-flex-right">
                   <img src={image} alt="" />
                 </div>
               </div>
